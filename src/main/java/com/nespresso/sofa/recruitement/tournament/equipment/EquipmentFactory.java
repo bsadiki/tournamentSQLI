@@ -1,0 +1,13 @@
+package com.nespresso.sofa.recruitement.tournament.equipment;
+import com.nespresso.sofa.recruitement.tournament.equipment.attack.concretWeapon.Axe;
+import com.nespresso.sofa.recruitement.tournament.equipment.defence.*;
+public class EquipmentFactory {
+    public AbstractEquipment createEquipment(String equipment){
+        switch (equipment){
+            case "buckler" : return new Buckler();
+            case "armor" : return new Armor();
+            case "Axe" : return new Axe();
+        }
+        return null;
+    }
+}
