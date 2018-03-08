@@ -6,7 +6,7 @@ public class EquipmentFactory {
         switch (equipment){
             case "buckler" : return new Buckler();
             case "armor" : return new Armor();
-            case "Axe" : return new Axe();
+            case "axe" : return new Axe();
         }
         return null;
     }

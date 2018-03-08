@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Fighter {
-    private EquipmentFactory equipmentFactory;
+    protected EquipmentFactory equipmentFactory;
     protected Integer points;
     protected List<AbstractProtectionEquipment> protectionEquipments;
     protected AbstractWeapon attackEquipment;
@@ -54,8 +54,10 @@ public abstract class Fighter {
 
     protected void takeDamage(AbstractWeapon weapon, Integer strikeDamage){
         Integer reducedDamage = protectionEquipmentHandler.reduceDamage(protectionEquipments,weapon,strikeDamage);
-        if(reducedDamage!=null)
+        if(reducedDamage!=null) {
             this.points -= reducedDamage;
+            System.out.println(getClass().getSimpleName()+" "+reducedDamage);
+        }
         zeroIfNegative();
     }
 

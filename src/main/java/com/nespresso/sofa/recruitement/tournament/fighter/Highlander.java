@@ -27,6 +27,8 @@ public class Highlander extends Fighter {
             Integer equipmentStrike = attackEquipment.strike();
             if(equipmentStrike!=null)
                 return equipmentStrike*2;
+            else
+                return null;
         }
         return attackEquipment.strike();
     }

@@ -97,7 +97,6 @@ public class TournamentTest {
 
         assertThat(swordsman.hitPoints()).isEqualTo(1);
         assertThat(highlander.hitPoints()).isEqualTo(0);
-
     }
 
 }
