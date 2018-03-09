@@ -11,13 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Fighter {
-    protected EquipmentFactory equipmentFactory;
     protected Integer points;
     protected List<AbstractProtectionEquipment> protectionEquipments;
     protected AbstractWeapon attackEquipment;
     private ProtectionEquipmentHandler protectionEquipmentHandler;
     public Fighter() {
-        equipmentFactory = new EquipmentFactory();
         protectionEquipments = new ArrayList<>();
         protectionEquipmentHandler = new ProtectionEquipmentHandler();
     }
@@ -36,7 +34,7 @@ public abstract class Fighter {
     }
 
     protected void addWeapon(String equipmentName) {
-        AbstractEquipment equipment = equipmentFactory.createEquipment(equipmentName);
+        AbstractEquipment equipment = EquipmentFactory.createEquipment(equipmentName);
         if (equipment instanceof AbstractWeapon)
             attackEquipment = (AbstractWeapon) equipment;
         else if (equipment instanceof AbstractProtectionEquipment)
@@ -56,7 +54,6 @@ public abstract class Fighter {
         Integer reducedDamage = protectionEquipmentHandler.reduceDamage(protectionEquipments,weapon,strikeDamage);
         if(reducedDamage!=null) {
             this.points -= reducedDamage;
-            System.out.println(getClass().getSimpleName()+" "+reducedDamage);
         }
         zeroIfNegative();
     }
@@ -77,4 +74,3 @@ public abstract class Fighter {
     }
     public abstract Integer power();
 }
-
