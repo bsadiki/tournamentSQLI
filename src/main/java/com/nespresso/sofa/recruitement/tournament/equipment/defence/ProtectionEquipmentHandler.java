@@ -3,35 +3,29 @@ package com.nespresso.sofa.recruitement.tournament.equipment.defence;
 import com.nespresso.sofa.recruitement.tournament.equipment.attack.AbstractWeapon;
 import com.nespresso.sofa.recruitement.tournament.equipment.attack.concretWeapon.Axe;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class ProtectionEquipmentHandler {
     public Integer reduceDamage(List<AbstractProtectionEquipment> holdenProtectionEquipments, AbstractWeapon weapon, Integer strikeDamage){
         Integer reducedDamage = strikeDamage;
-        AbstractProtectionEquipment bucklerToDestroy = null;
-        for(AbstractProtectionEquipment holdenProtectionEquipment : holdenProtectionEquipments) {
-            if (holdenProtectionEquipment instanceof Buckler) {
-                Buckler buckler = (Buckler) holdenProtectionEquipment;
-                reducedDamage = buckler.reduceDamage(reducedDamage);
+        Iterator<AbstractProtectionEquipment> protectionEquipmentIterator = holdenProtectionEquipments.listIterator();
+        while (protectionEquipmentIterator.hasNext()){
+            AbstractProtectionEquipment current = protectionEquipmentIterator.next();
+            if (current instanceof Buckler) {
+                Buckler buckler = (Buckler) current;
+                reducedDamage = buckler.reduceDamage(reducedDamage, weapon);
                 if(noAttackIsReceived(reducedDamage))
                     return null;
-                if(weapon instanceof Axe)
-                    buckler.reduceStrikesToBeDestroyed();
                 if(!buckler.canBeUsed())
-                    bucklerToDestroy = holdenProtectionEquipment;
+                    protectionEquipmentIterator.remove();
             }
-            else if(holdenProtectionEquipment instanceof Armor){
-                Armor armor = (Armor) holdenProtectionEquipment;
-                reducedDamage = armor.reduceDamage(reducedDamage);
+            else if(current instanceof Armor){
+                Armor armor = (Armor) current;
+                reducedDamage = armor.reduceDamage(reducedDamage,weapon);
             }
         }
-        holdenProtectionEquipments.remove(bucklerToDestroy);
-        return zeroIfNegative(reducedDamage);
-    }
-    private Integer zeroIfNegative(Integer reducedDamage){
-        if(reducedDamage < 0)
-            return 0;
-        return reducedDamage;
+        return Math.max(0,reducedDamage);
     }
     private boolean noAttackIsReceived(Integer reducedDamaged){
         return reducedDamaged == null;

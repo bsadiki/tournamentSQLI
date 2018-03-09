@@ -69,8 +69,7 @@ public abstract class Fighter {
     }
 
     private void zeroIfNegative(){
-        if(points <= 0)
-            points = 0;
+        points = Math.max(0,points);
     }
     public abstract Integer power();
 }

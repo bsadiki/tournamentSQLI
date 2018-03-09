@@ -1,26 +1,31 @@
 package com.nespresso.sofa.recruitement.tournament.equipment.defence;
 
 
+import com.nespresso.sofa.recruitement.tournament.equipment.attack.AbstractWeapon;
+import com.nespresso.sofa.recruitement.tournament.equipment.attack.concretWeapon.Axe;
+
 public class Buckler extends AbstractProtectionEquipment {
     private Integer strikesToBeDestroyed;
-    private boolean hasConceledDamage;
+    private boolean hasCanceledDamage;
 
     public Buckler() {
         strikesToBeDestroyed = 3;
-        hasConceledDamage = false;
+        hasCanceledDamage = false;
     }
 
     @Override
-    public Integer reduceDamage(Integer strikePower) {
-        if(!hasConceledDamage){
-            hasConceledDamage =true;
+    public Integer reduceDamage(Integer strikePower, AbstractWeapon attackingWeapon) {
+        if(!hasCanceledDamage){
+            hasCanceledDamage =true;
+            if(attackingWeapon instanceof Axe)
+                reduceStrikesToBeDestroyed();
             return null;
         }else {
-            hasConceledDamage = false;
+            hasCanceledDamage = false;
             return strikePower;
         }
     }
-    void reduceStrikesToBeDestroyed(){
+    private void reduceStrikesToBeDestroyed(){
         strikesToBeDestroyed--;
     }
     public boolean canBeUsed(){
