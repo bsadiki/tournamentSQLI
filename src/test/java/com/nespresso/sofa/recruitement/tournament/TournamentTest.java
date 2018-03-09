@@ -1,8 +1,8 @@
 package com.nespresso.sofa.recruitement.tournament;
 
 
-import com.nespresso.sofa.recruitement.tournament.fighter.Highlander;
-import com.nespresso.sofa.recruitement.tournament.fighter.Swordsman;
+import com.nespresso.sofa.recruitement.tournament.fighter.highlander.Highlander;
+import com.nespresso.sofa.recruitement.tournament.fighter.swordsman.Swordsman;
 import com.nespresso.sofa.recruitement.tournament.fighter.Viking;
 import org.junit.Test;
 
